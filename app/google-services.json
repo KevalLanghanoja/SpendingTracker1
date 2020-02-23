@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "354386680183",
+    "firebase_url": "https://spendingtracker-b6f04.firebaseio.com",
+    "project_id": "spendingtracker-b6f04",
+    "storage_bucket": "spendingtracker-b6f04.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:354386680183:android:8f5a95c0358019c0012972",
+        "android_client_info": {
+          "package_name": "com.example.spendingtracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "354386680183-0pgtnnavbchjfqgttg07h3s2n9b5bvd9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.spendingtracker",
+            "certificate_hash": "0ec8e4349e0baa16d18cc20fec25d3dc83ba88d2"
+          }
+        },
+        {
+          "client_id": "354386680183-8fd94d7knm96kb71gagjm0mmasq0m1iv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYfq6jND0dR4I3U6U60foajiTADe8Hbds"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "354386680183-8fd94d7knm96kb71gagjm0mmasq0m1iv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
