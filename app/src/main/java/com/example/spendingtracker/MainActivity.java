@@ -33,17 +33,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        database=FirebaseDatabase.getInstance();
-        users=database.getReference("Users");
-
-        textView=findViewById(R.id.tvLSignup);
-        etLEmail=findViewById(R.id.etLEmail);
-        etLPassword=findViewById(R.id.etLPassword);
-        btnLLogin=findViewById(R.id.btnLLogin);
-        textView.setOnClickListener(MainActivity.this);
-        btnLLogin.setOnClickListener(MainActivity.this);
+        SharedPreferences sp=getSharedPreferences("uName",MODE_PRIVATE);
+        String name = sp.getString("uname", "Not");
+        if(name.equals("Not")) {
 
 
+            database = FirebaseDatabase.getInstance();
+            users = database.getReference("Users");
+
+            textView = findViewById(R.id.tvLSignup);
+            etLEmail = findViewById(R.id.etLEmail);
+            etLPassword = findViewById(R.id.etLPassword);
+            btnLLogin = findViewById(R.id.btnLLogin);
+            textView.setOnClickListener(MainActivity.this);
+            btnLLogin.setOnClickListener(MainActivity.this);
+        }
+        else {
+            startActivity(new Intent(MainActivity.this,Home.class));
+            MainActivity.this.finish();
+        }
     }
 
     @Override
@@ -69,12 +77,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     {
                         User login=dataSnapshot.child(username).getValue(User.class);
                         if (login.getPassword().equals(password)) {
+                            String Email = login.getEmail();
+                            String Username=login.getUsername();
                             Toast.makeText(MainActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
                             SharedPreferences sp=getSharedPreferences("uName",MODE_PRIVATE);
                             SharedPreferences.Editor spedit = sp.edit();
-                            spedit.putString("uname",etLEmail.getText().toString());
+                            spedit.putString("uname",Username);
+                            spedit.putString("email",Email);
                             spedit.commit();
-//                            MainActivity.this.finish();
+                            startActivity(new Intent(MainActivity.this,Home.class));
+                            MainActivity.this.finish();
+
                         }
                         else{
                             Toast.makeText(MainActivity.this, "Wrong Password", Toast.LENGTH_SHORT).show();
