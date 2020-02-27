@@ -30,7 +30,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:letterSpacing="0.1"
-        android:hint="Username"/>
+        android:hint="Group Name"/>
 
     <EditText
         android:id="@+id/etLPassword"

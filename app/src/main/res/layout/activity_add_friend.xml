@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".addFriend">
+
+
+    <EditText
+        android:id="@+id/etFEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="phone"
+        android:text=""
+        android:hint="Enter Friend Phone no"/>
+
+    <EditText
+        android:id="@+id/etFname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:text=""
+        android:hint="Enter Friend Name"/>
+
+    <Button
+        android:id="@+id/btnFAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Friend" />
+
+    <Button
+        android:id="@+id/btnACancle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancle" />
+</LinearLayout>

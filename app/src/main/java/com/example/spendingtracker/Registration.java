@@ -73,7 +73,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if(dataSnapshot.child(user.getUsername()).exists()) {
-                                Toast.makeText(Registration.this, "Already Exist", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Registration.this, "Group Name is already Exist", Toast.LENGTH_SHORT).show();
                             }
                             else {
                                 users.child(user.getUsername()).setValue(user);
@@ -87,7 +87,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                     });
                 }
                     else {
-                        Toast.makeText(this, "Password and Confiram Password is not Match", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Password and Confirm Password is not Match", Toast.LENGTH_SHORT).show();
                     }
                 }
 
