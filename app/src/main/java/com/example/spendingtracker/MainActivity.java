@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     {
                         User login=dataSnapshot.child(username).getValue(User.class);
                         if (login.getPassword().equals(password)) {
-                            String Email = login.getEmail();
+                            String Email = login.getMobile();
                             String Username=login.getUsername();
                             Toast.makeText(MainActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
                             SharedPreferences sp=getSharedPreferences("uName",MODE_PRIVATE);

@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 public class Registration extends AppCompatActivity implements View.OnClickListener {
 
     TextView tvRLogin;
-    EditText etRUsername, etRPassword, etREmail, etRConfirmPassword;
+    EditText etRUsername, etRPassword, etRMobile, etRConfirmPassword;
     Button btnRSignup;
 
     FirebaseDatabase database;
@@ -35,7 +35,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         users=database.getReference("Users");
         tvRLogin = findViewById(R.id.tvRLogin);
         etRUsername = findViewById(R.id.etRUsername);
-        etREmail = findViewById(R.id.etREmail);
+        etRMobile = findViewById(R.id.etRMobile);
         etRPassword = findViewById(R.id.etRPassword);
         etRConfirmPassword = findViewById(R.id.etRConfirmPassword);
         btnRSignup = findViewById(R.id.btnRSignup);
@@ -52,14 +52,14 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnRSignup:
 
-               if(etRUsername.getText().toString().isEmpty() || etRPassword.getText().toString().length()<6 || etREmail.getText().toString().length()<5)
+               if(etRUsername.getText().toString().isEmpty() || etRPassword.getText().toString().length()<6 || etRMobile.getText().toString().length()<5)
                 {
                     if(etRUsername.getText().toString().length()<5)
                     {
                         Toast.makeText(this, "Username must me 5 letter", Toast.LENGTH_SHORT).show();
                     }
-                    else if(etREmail.getText().toString().length()<5){
-                        Toast.makeText(this, "Enter valid Email Id", Toast.LENGTH_SHORT).show();   
+                    else if(etRMobile.getText().toString().length() <10){
+                        Toast.makeText(this, "Enter valid Mobile No", Toast.LENGTH_SHORT).show();
                     }
                     else if(etRPassword.getText().toString().length()<6) {
                         Toast.makeText(this, "password length is minimum 6 Digit", Toast.LENGTH_SHORT).show();
@@ -68,7 +68,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 else{
                     if(etRPassword.getText().toString().equals(etRConfirmPassword.getText().toString())) {
 
-                    final User user= new User(etRUsername.getText().toString(),etRPassword.getText().toString(),etREmail.getText().toString());
+                    final User user= new User(etRUsername.getText().toString(),etRPassword.getText().toString(),etRMobile.getText().toString());
                     users.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

@@ -2,7 +2,15 @@ package com.example.spendingtracker.Model;
 
 public class friend {
     String fname;
-    String femail;
+    String fMoblie;
+
+    public String getfMoblie() {
+        return fMoblie;
+    }
+
+    public void setfMoblie(String fMoblie) {
+        this.fMoblie = fMoblie;
+    }
 
     public String getFname() {
         return fname;
@@ -12,16 +20,9 @@ public class friend {
         this.fname = fname;
     }
 
-    public String getFemail() {
-        return femail;
-    }
 
-    public void setFemail(String femail) {
-        this.femail = femail;
-    }
-
-    public friend(String fname, String femail) {
+    public friend(String fname, String fMoblie) {
         this.fname = fname;
-        this.femail = femail;
+        this.fMoblie = fMoblie;
     }
 }

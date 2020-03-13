@@ -20,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class addFriend extends AppCompatActivity implements View.OnClickListener {
 
-    EditText etFEmail;
+    EditText etFMobile;
     EditText etFname;
     Button btnACancle;
     Button btnFAdd;
@@ -34,7 +34,7 @@ public class addFriend extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_friend);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        etFEmail = findViewById(R.id.etFEmail);
+        etFMobile = findViewById(R.id.etFMobile);
         etFname = findViewById(R.id.etFname);
         btnACancle = findViewById(R.id.btnACancle);
         btnFAdd = findViewById(R.id.btnFAdd);
@@ -60,15 +60,15 @@ public class addFriend extends AppCompatActivity implements View.OnClickListener
     }
 
     private void add() {
-        final friend  f = new friend(etFname.getText().toString(),etFEmail.getText().toString());
+        final friend  f = new friend(etFname.getText().toString(),etFMobile.getText().toString());
         users.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.child(name).child("friends") .child(f.getFemail()).exists()) {
+                if(dataSnapshot.child(name).child("friends") .child(f.getfMoblie()).exists()) {
                     Toast.makeText(addFriend.this, "already", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    users.child(name).child("friends").child(f.getFemail()).setValue(f);
+                    users.child(name).child("friends").child(f.getfMoblie()).setValue(f);
                     Toast.makeText(addFriend.this, "Insert Successfully", Toast.LENGTH_SHORT).show();
                     addFriend.this.finish();
                     
