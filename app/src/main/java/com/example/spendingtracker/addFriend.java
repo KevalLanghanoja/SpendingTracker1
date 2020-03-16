@@ -64,11 +64,11 @@ public class addFriend extends AppCompatActivity implements View.OnClickListener
         users.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.child(name).child("friends") .child(f.getfMoblie()).exists()) {
+                if(dataSnapshot.child(name).child("friends") .child(f.getFname()).exists()) {
                     Toast.makeText(addFriend.this, "already", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    users.child(name).child("friends").child(f.getfMoblie()).setValue(f);
+                    users.child(name).child("friends").child(f.getFname()).setValue(f);
                     Toast.makeText(addFriend.this, "Insert Successfully", Toast.LENGTH_SHORT).show();
                     addFriend.this.finish();
                     

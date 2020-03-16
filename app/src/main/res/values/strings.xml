@@ -22,4 +22,9 @@
         <item>dsfdsfds</item>
         <item>dsfdsfds</item>
     </array>
+    <string-array name="names">
+        <item>Abhay</item>
+        <item>Bhavin</item>
+        <item>Hemang</item>
+    </string-array>
 </resources>
