@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
-public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,FriendList.OnFragmentInteractionListener,ExpenseList.OnFragmentInteractionListener{
+public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FriendList.OnFragmentInteractionListener, ExpenseList.OnFragmentInteractionListener {
 
     private DrawerLayout drawer;
     TextView textView;
@@ -30,36 +30,38 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
 //      For set a user Detail
         textView = findViewById(R.id.tUserName);
-        tEmail = findViewById(R.id.tEmail);
+        tEmail = findViewById(R.id.tMobile);
         SharedPreferences sp = getSharedPreferences("uName", MODE_PRIVATE);
-        textView.setText("Welcome " + sp.getString("uname", "Not Found"));
-        tEmail.setText("" + sp.getString("email", "Not Found"));
+        textView.setText("Welcome " + sp.getString("uname", "Not Found") + ",");
+        tEmail.setText("Mobile No:" + sp.getString("email", "Not Found"));
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 //      Toogle Button on Top off the Screen
-        drawer=findViewById(R.id.drawer_layout);
-        NavigationView navigationView=findViewById(R.id.nav_view);
+        drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(Home.this);
-        ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
 
         //Tab View
-        tabLayout=findViewById(R.id.tablayout);
+        tabLayout = findViewById(R.id.tablayout);
         tabLayout.addTab(tabLayout.newTab().setText("Friend List"));
         tabLayout.addTab(tabLayout.newTab().setText("Expense List"));
-        final ViewPager viewPager=findViewById(R.id.pager);
-        final PagerAdapter adapter=new PagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
+        final ViewPager viewPager = findViewById(R.id.pager);
+        final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-               viewPager.setCurrentItem(tab.getPosition());
+                viewPager.setCurrentItem(tab.getPosition());
             }
 
             @Override
@@ -72,38 +74,33 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
             }
         });
-
-
     }
-//Create a Toogle Button Onclick Event and Manage Close Button
+
+    //Create a Toogle Button Onclick Event and Manage Close Button
     @Override
     public void onBackPressed() {
-        if(drawer.isDrawerOpen(GravityCompat.START)){
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        }
-        else {
-            super.onBackPressed();;
+        } else {
+            super.onBackPressed();
+            ;
         }
     }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case R.id.nav_message:
                 Toast.makeText(this, "Add Friends", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(),addFriend.class));
+                startActivity(new Intent(getApplicationContext(), addFriend.class));
                 break;
             case R.id.nav_logout:
                 Toast.makeText(this, "Logout Successfully", Toast.LENGTH_SHORT).show();
                 SharedPreferences sp = getSharedPreferences("uName", MODE_PRIVATE);
                 SharedPreferences.Editor spedit = sp.edit();
                 spedit.clear();
-                spedit.commit();
                 Home.this.finish();
-
-                startActivity(new Intent(Home.this,MainActivity.class));
-
+                startActivity(new Intent(Home.this, MainActivity.class));
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
@@ -112,6 +109,5 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
     @Override
     public void onFragmentInteraction(Uri uri) {
-
     }
 }

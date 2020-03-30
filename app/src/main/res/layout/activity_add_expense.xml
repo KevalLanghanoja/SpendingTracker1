@@ -21,8 +21,33 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="phone" />
-    <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Paid by" />
+        <Button
+            android:id="@+id/btnPayer"
+            android:text="You"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </Button>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="and split" />
+
+        <Button
+            android:id="@+id/btnPaid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EQUALLY"></Button>
+
+    </LinearLayout>
 </LinearLayout>

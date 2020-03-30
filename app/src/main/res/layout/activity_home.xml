@@ -5,7 +5,6 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:clickable="true"
     tools:context=".Home"
     tools:openDrawer="start">
@@ -24,13 +23,15 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
         </androidx.appcompat.widget.Toolbar>
+
         <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tablayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tablayout"
             android:background="@color/colorPrimary"
             android:minHeight="?attr/actionBarSize"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:tabIndicatorColor="#FFFFFF" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/pager"
@@ -49,7 +50,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="176dp"
-            android:background="#C94CAF50"
+            android:background="@color/colorPrimary"
             android:gravity="bottom"
             android:padding="16dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark">
@@ -67,7 +68,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 />
             <TextView
-                android:id="@+id/tEmail"
+                android:id="@+id/tMobile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="" />
@@ -79,11 +80,6 @@
             android:layout_height="match_parent"
             app:menu="@menu/drawel_menu"
             android:layout_gravity="start">
-
         </com.google.android.material.navigation.NavigationView>
-
     </com.google.android.material.navigation.NavigationView>
-
-
-
 </androidx.drawerlayout.widget.DrawerLayout>

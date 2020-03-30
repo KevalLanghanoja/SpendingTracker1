@@ -11,8 +11,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -21,13 +24,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static android.content.Context.MODE_PRIVATE;
 
 public class FriendList extends Fragment {
     ListView friendList;
     DatabaseReference reff;
-    ArrayList<String> friendListArray=new ArrayList<String>();
+    ArrayList<String> friendListArray = new ArrayList<String>();
+
     public FriendList() {
         // Required empty public constructor
     }
@@ -35,26 +41,33 @@ public class FriendList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_friend_list, container, false);
+        View v = inflater.inflate(R.layout.fragment_friend_list, container, false);
+        friendList = v.findViewById(R.id.friendList);
+
+
+        View empty =  v.findViewById(R.id.empty);
         SharedPreferences sp = getActivity().getSharedPreferences("uName", MODE_PRIVATE);
-        String gName=sp.getString("uname", "Not Found");
+        String gName = sp.getString("uname", "Not Found");
         // Inflate the layout for this fragment
-        friendList=view.findViewById(R.id.friendList);
-        reff= FirebaseDatabase.getInstance().getReference().child("Users").child(gName).child("friends");
-        final ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,friendListArray);
-        friendList.setAdapter(arrayAdapter);
+
+        final CustomAdpter customAdpter = new CustomAdpter();
+        friendList.setAdapter(customAdpter);
+        friendList.setEmptyView(empty);
+
+
+        reff = FirebaseDatabase.getInstance().getReference().child("Users").child(gName).child("friends");
         reff.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                String value=dataSnapshot.getKey();
+                String value = dataSnapshot.getKey();
                 friendListArray.add(value);
-                arrayAdapter.notifyDataSetChanged();
+                customAdpter.notifyDataSetChanged();
 
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                String value=dataSnapshot.getKey();
+                String value = dataSnapshot.getKey();
                 friendListArray.add(value);
             }
 
@@ -73,7 +86,35 @@ public class FriendList extends Fragment {
 
             }
         });
-        return  view;
+        return v;
+    }
+
+
+    class CustomAdpter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return friendListArray.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            convertView = getLayoutInflater().inflate(R.layout.customlistview, null);
+            ImageView imageView = convertView.findViewById(R.id.imageView);
+            TextView friendName = convertView.findViewById(R.id.friendName);
+            friendName.setText(friendListArray.get(position));
+            return convertView;
+        }
     }
 
     public interface OnFragmentInteractionListener {

@@ -5,8 +5,18 @@
     android:layout_height="match_parent"
     tools:context=".FriendList">
 
+
+
     <ListView
         android:id="@+id/friendList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+    <TextView
+        android:id="@+id/empty"
+        android:text="Friend is not Found"
+        android:textSize="20dp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        />
 </FrameLayout>
