@@ -46,7 +46,7 @@ public class FriendList extends Fragment {
 
 
         View empty =  v.findViewById(R.id.empty);
-        SharedPreferences sp = getActivity().getSharedPreferences("uName", MODE_PRIVATE);
+        SharedPreferences sp = getActivity().getSharedPreferences("data", MODE_PRIVATE);
         String gName = sp.getString("uname", "Not Found");
         // Inflate the layout for this fragment
 

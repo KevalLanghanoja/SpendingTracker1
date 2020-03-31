@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences sp=getSharedPreferences("uName",MODE_PRIVATE);
+        SharedPreferences sp=getSharedPreferences("data",MODE_PRIVATE);
         String name = sp.getString("uname", "Not");
         if(name.equals("Not")) {
 
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             String Email = login.getMobile();
                             String Username=login.getUsername();
                             Toast.makeText(MainActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
-                            SharedPreferences sp=getSharedPreferences("uName",MODE_PRIVATE);
+                            SharedPreferences sp=getSharedPreferences("data",MODE_PRIVATE);
                             SharedPreferences.Editor spedit = sp.edit();
                             spedit.putString("uname",Username);
                             spedit.putString("email",Email);

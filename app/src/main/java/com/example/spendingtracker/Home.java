@@ -34,7 +34,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 //      For set a user Detail
         textView = findViewById(R.id.tUserName);
         tEmail = findViewById(R.id.tMobile);
-        SharedPreferences sp = getSharedPreferences("uName", MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences("data", MODE_PRIVATE);
         textView.setText("Welcome " + sp.getString("uname", "Not Found") + ",");
         tEmail.setText("Mobile No:" + sp.getString("email", "Not Found"));
 
@@ -96,11 +96,13 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 break;
             case R.id.nav_logout:
                 Toast.makeText(this, "Logout Successfully", Toast.LENGTH_SHORT).show();
-                SharedPreferences sp = getSharedPreferences("uName", MODE_PRIVATE);
+                SharedPreferences sp = getSharedPreferences("data", MODE_PRIVATE);
                 SharedPreferences.Editor spedit = sp.edit();
-                spedit.clear();
-                Home.this.finish();
                 startActivity(new Intent(Home.this, MainActivity.class));
+                spedit.clear();
+                spedit.apply();
+                Home.this.finish();
+
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

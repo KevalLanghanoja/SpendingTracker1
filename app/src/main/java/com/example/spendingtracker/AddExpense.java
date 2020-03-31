@@ -40,7 +40,7 @@ public class AddExpense extends AppCompatActivity implements View.OnClickListene
         btnPayer=findViewById(R.id.btnPayer);
         btnPaid.setOnClickListener(AddExpense.this);
         btnPayer.setOnClickListener(AddExpense.this);
-        SharedPreferences sp = getSharedPreferences("uName", MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences("data", MODE_PRIVATE);
         String gName=sp.getString("uname", "Not Found");
         reff= FirebaseDatabase.getInstance().getReference().child("Users").child(gName).child("friends");
         reff.addChildEventListener(new ChildEventListener() {
