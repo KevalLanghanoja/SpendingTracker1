@@ -9,9 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity" android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
         <activity
             android:name=".AddExpense"
-            android:parentActivityName=".Home"></activity>
+            android:parentActivityName=".Home" />
         <activity
             android:name=".addFriend"
             android:parentActivityName=".Home" />
@@ -22,7 +25,7 @@
             android:name=".Registration"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name=".progesssbar"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,6 +33,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+    </application>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 </manifest>

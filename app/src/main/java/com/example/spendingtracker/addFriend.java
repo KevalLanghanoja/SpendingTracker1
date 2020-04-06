@@ -40,7 +40,7 @@ public class addFriend extends AppCompatActivity implements View.OnClickListener
         btnFAdd = findViewById(R.id.btnFAdd);
         btnFAdd.setOnClickListener(addFriend.this);
         btnACancle.setOnClickListener(addFriend.this);
-        SharedPreferences sp=getSharedPreferences("uName",MODE_PRIVATE);
+        SharedPreferences sp=getSharedPreferences("data",MODE_PRIVATE);
         name = sp.getString("uname", "Not");
         database=FirebaseDatabase.getInstance();
         users=database.getReference("Users");

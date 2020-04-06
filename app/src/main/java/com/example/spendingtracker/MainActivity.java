@@ -33,9 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences sp=getSharedPreferences("data",MODE_PRIVATE);
-        String name = sp.getString("uname", "Not");
-        if(name.equals("Not")) {
+
 
 
             database = FirebaseDatabase.getInstance();
@@ -47,11 +45,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             btnLLogin = findViewById(R.id.btnLLogin);
             textView.setOnClickListener(MainActivity.this);
             btnLLogin.setOnClickListener(MainActivity.this);
-        }
-        else {
-            startActivity(new Intent(MainActivity.this,Home.class));
-            MainActivity.this.finish();
-        }
     }
 
     @Override
