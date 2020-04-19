@@ -1,8 +1,10 @@
 package com.example.spendingtracker;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -59,10 +61,35 @@ public class progesssbar extends AppCompatActivity {
                                 }    
                             }
                             else {
-                                startActivity(getIntent());
-                                finish();
+                                final AlertDialog.Builder ab=new AlertDialog.Builder(progesssbar.this);
+                                ab.setTitle("Internet Access");
+                                ab.setMessage("No Internet Connection");
+                                ab.setCancelable(false);
 
-                                Toast.makeText(progesssbar.this, "Please check Interner Connection", Toast.LENGTH_SHORT).show();
+                                ab.setPositiveButton("Try Again", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        if(isNetworkConnected()){
+                                            SharedPreferences sp=getSharedPreferences("data",MODE_PRIVATE);
+                                            String name = sp.getString("uname", "Not");
+                                            if(name.equals("Not")) {
+                                                startActivity(new Intent(progesssbar.this,MainActivity.class));
+                                                progesssbar.this.finish();}
+                                            else {
+                                                    startActivity(new Intent(progesssbar.this,Home.class));
+                                                    progesssbar.this.finish();
+                                                }
+                                            }
+                                        else {
+                                            AlertDialog alertDialog=ab.create();
+                                            alertDialog.show();
+                                        }
+                                        }
+                                });
+                                AlertDialog alertDialog=ab.create();
+                                alertDialog.show();
+
+//                                Toast.makeText(progesssbar.this, "Please check Interner Connection", Toast.LENGTH_SHORT).show();
                             }
                             
                         }

@@ -34,9 +34,6 @@ public class FriendList extends Fragment {
     DatabaseReference reff;
     ArrayList<String> friendListArray = new ArrayList<String>();
 
-    public FriendList() {
-        // Required empty public constructor
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

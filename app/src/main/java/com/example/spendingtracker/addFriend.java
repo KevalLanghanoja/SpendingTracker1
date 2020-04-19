@@ -60,7 +60,7 @@ public class addFriend extends AppCompatActivity implements View.OnClickListener
     }
 
     private void add() {
-        final friend  f = new friend(etFname.getText().toString(),etFMobile.getText().toString());
+        final friend  f = new friend(etFname.getText().toString(),etFMobile.getText().toString(),0,0);
         users.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

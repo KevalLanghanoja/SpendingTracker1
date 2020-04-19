@@ -8,7 +8,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 
 import com.example.spendingtracker.Model.AddExpenses;
+import com.example.spendingtracker.Model.friend;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AddExpense extends AppCompatActivity implements View.OnClickListener {
     Button btnPaid;
@@ -31,9 +33,13 @@ public class AddExpense extends AppCompatActivity implements View.OnClickListene
     Button btnSaveExpense;
     EditText etDescription;
     EditText etAmount;
-
+    List<String> dividendBetween = new ArrayList<String>();
+    long maxId=1;
+//    ArrayList<CharSequence> paid=new ArrayList<>();
+    List<CharSequence> payer = new ArrayList<CharSequence>();
     FirebaseDatabase database;
     DatabaseReference reff;
+    DatabaseReference reff1;
     ArrayList<String> friendListArray = new ArrayList<String>();
     CharSequence[] charSequences;
     String[] listItems;
@@ -109,23 +115,55 @@ public class AddExpense extends AppCompatActivity implements View.OnClickListene
 
     public void saveExpense() {
         SharedPreferences sp=getSharedPreferences("data",MODE_PRIVATE);
-         final String name = sp.getString("uname", "Not");
+        final String name = sp.getString("uname", "Not");
         database=FirebaseDatabase.getInstance();
         reff=database.getReference("Users");
-        final AddExpenses aE= new AddExpenses(etDescription.getText().toString(),etAmount.getText().toString());
+        reff1=database.getReference("Users");
+
+        final AddExpenses aE= new AddExpenses(etDescription.getText().toString(),etAmount.getText().toString(),payer,dividendBetween);
         reff.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.child(name).child("Expense") .child(aE.getDescription()).exists()) {
-                    Toast.makeText(AddExpense.this, "dfdsfsdfd", Toast.LENGTH_SHORT).show();
-                    
-                }
-                else {
-                    reff.child(name).child("Expense").child(aE.getDescription()).setValue(aE);
-                    Toast.makeText(AddExpense.this, "Insert Successfully", Toast.LENGTH_SHORT).show();
+                final int a= Integer.parseInt(etAmount.getText().toString());
+                final int b=a/dividendBetween.size();
+                for( final CharSequence p :payer){
+                    Log.d("dfd" ,""+dataSnapshot.child(name).child("friends").child((String) p).child("paid").getValue(Integer.class));
+                    final int k =dataSnapshot.child(name).child("friends").child((String) p).child("paid").getValue(Integer.class);
+                    reff1.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            reff1.child(name).child("friends").child((String) p).child("paid").setValue(k+a);
+                        }
 
-                }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
+                        }
+                    });
+                }
+                for(final String i : dividendBetween){
+                    final int j =dataSnapshot.child(name).child("friends").child(i).child("expense").getValue(Integer.class);
+                    reff1.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            reff1.child(name).child("friends").child(i).child("expense").setValue(j+b);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+//                    Toast.makeText(AddExpense.this, ""+dataSnapshot.child(name).child("friends").child("Keval").child("Paid").getValue(), Toast.LENGTH_SHORT).show();
+
+
+                if(dataSnapshot.child(name).child("Expense").exists()) {
+                    maxId=dataSnapshot.child(name).child("Expense").getChildrenCount()+1;
+                }
+                reff.child(name).child("Expense").child("e"+maxId).setValue(aE);
+                AddExpense.this.finish();
+                Toast.makeText(AddExpense.this, "Insert Successfully", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -133,6 +171,7 @@ public class AddExpense extends AppCompatActivity implements View.OnClickListene
 
             }
         });
+
     }
 
     public void showPayer() {
@@ -147,6 +186,7 @@ public class AddExpense extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 btnPayer.setText(charSequences[which]);
+                payer.add(charSequences[which]);
                 Toast.makeText(AddExpense.this, "" + charSequences[which], Toast.LENGTH_SHORT).show();
 
             }
@@ -170,7 +210,8 @@ public class AddExpense extends AppCompatActivity implements View.OnClickListene
                         checkedItems[position] = true;
                         mUserItems.add(position);
                     }
-                } else {
+                }
+                else {
                     mUserItems.remove((Integer.valueOf(position)));
                 }
             }
@@ -181,13 +222,11 @@ public class AddExpense extends AppCompatActivity implements View.OnClickListene
             public void onClick(DialogInterface dialog, int which) {
                 String item = "";
                 for (int i = 0; i < mUserItems.size(); i++) {
-                    item = item + listItems[mUserItems.get(i)];
-                    if (i != mUserItems.size() - 1) {
-                        item = item + ", ";
-                    }
-                }
+//                    item =listItems[mUserItems.get(i)];
+                    dividendBetween.add(listItems[mUserItems.get(i)]);
 
-                Toast.makeText(AddExpense.this, "" + item, Toast.LENGTH_SHORT).show();
+                }
+//                Toast.makeText(AddExpense.this, "" + item, Toast.LENGTH_SHORT).show();
             }
         });
 
